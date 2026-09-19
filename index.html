@@ -138,3 +138,189 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLARA - AI Assistant</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    .app {
+      max-width: 800px;
+      margin: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #334155;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .tagline {
+      margin-top: 6px;
+      color: #94a3b8;
+    }
+
+    .chat {
+      flex: 1;
+      padding: 25px 20px;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .welcome h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      color: #94a3b8;
+    }
+
+    .message {
+      margin: 15px 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      line-height: 1.5;
+    }
+
+    .user {
+      background: #2563eb;
+      margin-left: 20%;
+    }
+
+    .clara {
+      background: #1e293b;
+      margin-right: 20%;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 15px 20px;
+      border-top: 1px solid #334155;
+      background: #0f172a;
+    }
+
+    input {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid #475569;
+      border-radius: 10px;
+      background: #1e293b;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      padding: 15px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <header>
+      <div class="logo">CLARA</div>
+      <div class="tagline">Your Personal AI Assistant</div>
+    </header>
+
+    <main class="chat" id="chat">
+
+      <div class="welcome" id="welcome">
+        <h1>Hello 👋</h1>
+        <p>I'm CLARA. How can I help you?</p>
+      </div>
+
+    </main>
+
+    <div class="input-area">
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Ask CLARA something..."
+      >
+
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("messageInput");
+      const chat = document.getElementById("chat");
+      const welcome = document.getElementById("welcome");
+
+      const message = input.value.trim();
+
+      if (message === "") {
+        return;
+      }
+
+      if (welcome) {
+        welcome.remove();
+      }
+
+      const userMessage = document.createElement("div");
+      userMessage.className = "message user";
+      userMessage.textContent = message;
+      chat.appendChild(userMessage);
+
+      input.value = "";
+
+      const claraMessage = document.createElement("div");
+      claraMessage.className = "message clara";
+      claraMessage.textContent =
+        "I received your message. My AI brain will be connected next.";
+
+      chat.appendChild(claraMessage);
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    document.getElementById("messageInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+
+</body>
+</html>
