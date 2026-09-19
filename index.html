@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,94 +107,110 @@
       font-size: 16px;
       cursor: pointer;
     }
-
-    button:active {
-      transform: scale(0.97);
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <header>
-      <div class="logo">CLARA</div>
-      <div class="tagline">Your Personal AI Assistant</div>
-    </header>
+  <header>
+    <div class="logo">CLARA</div>
+    <div class="tagline">Your Personal AI Assistant</div>
+  </header>
 
-    <main class="chat" id="chat">
+  <main class="chat" id="chat">
 
-      <div class="welcome" id="welcome">
-        <h1>Hello 👋</h1>
-        <p>I'm CLARA. How can I help you?</p>
-      </div>
-
-    </main>
-
-    <div class="input-area">
-
-      <input
-        id="messageInput"
-        type="text"
-        placeholder="Ask CLARA something..."
-      >
-
-      <button onclick="sendMessage()">Send</button>
-
+    <div class="welcome" id="welcome">
+      <h1>Hello 👋</h1>
+      <p>I'm CLARA. How can I help you?</p>
     </div>
+
+  </main>
+
+  <div class="input-area">
+
+    <input
+      id="messageInput"
+      type="text"
+      placeholder="Ask CLARA something..."
+    >
+
+    <button onclick="sendMessage()">Send</button>
 
   </div>
 
-  <script>
-    function sendMessage() {
+</div>
 
-      const input = document.getElementById("messageInput");
-      const chat = document.getElementById("chat");
-      const welcome = document.getElementById("welcome");
+<script>
 
-      const message = input.value.trim();
+const WORKER_URL =
+  "https://spring-fire-49ad.chandupotluri0027.workers.dev";
 
-      if (message === "") {
-        return;
-      }
+async function sendMessage() {
 
-      if (welcome) {
-        welcome.remove();
-      }
+  const input = document.getElementById("messageInput");
+  const chat = document.getElementById("chat");
+  const welcome = document.getElementById("welcome");
 
-      const userMessage = document.createElement("div");
+  const message = input.value.trim();
 
-      userMessage.className = "message user";
+  if (message === "") {
+    return;
+  }
 
-      userMessage.textContent = message;
+  if (welcome) {
+    welcome.remove();
+  }
 
-      chat.appendChild(userMessage);
+  const userMessage = document.createElement("div");
 
-      input.value = "";
+  userMessage.className = "message user";
+  userMessage.textContent = message;
 
-      const claraMessage = document.createElement("div");
+  chat.appendChild(userMessage);
 
-      claraMessage.className = "message clara";
+  input.value = "";
 
-      claraMessage.textContent =
-        "I received your message. My AI brain will be connected next.";
+  const claraMessage = document.createElement("div");
 
-      chat.appendChild(claraMessage);
+  claraMessage.className = "message clara";
+  claraMessage.textContent = "Connecting to CLARA...";
 
-      chat.scrollTop = chat.scrollHeight;
+  chat.appendChild(claraMessage);
+
+  chat.scrollTop = chat.scrollHeight;
+
+  try {
+
+    const response = await fetch(WORKER_URL);
+
+    const data = await response.text();
+
+    claraMessage.textContent =
+      "CLARA backend says: " + data;
+
+  } catch (error) {
+
+    claraMessage.textContent =
+      "Could not connect to CLARA backend.";
+
+  }
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+document
+  .getElementById("messageInput")
+  .addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+      sendMessage();
     }
 
-    document
-      .getElementById("messageInput")
-      .addEventListener("keydown", function(event) {
+  });
 
-        if (event.key === "Enter") {
-          sendMessage();
-        }
-
-      });
-  </script>
+</script>
 
 </body>
 </html>
