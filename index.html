@@ -1,143 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLARA - Personal AI Assistant</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-    }
-
-    header {
-      padding: 24px;
-      text-align: center;
-      border-bottom: 1px solid #334155;
-    }
-
-    .logo {
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .tagline {
-      margin-top: 8px;
-      color: #94a3b8;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 42px;
-      margin-bottom: 16px;
-    }
-
-    .intro {
-      max-width: 650px;
-      margin: 0 auto 40px;
-      color: #cbd5e1;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 25px;
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 20px;
-    }
-
-    .card p {
-      color: #94a3b8;
-      line-height: 1.5;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
-    }
-  </style>
-</head>
-
-<body>
-
-  <header>
-    <div class="logo">CLARA</div>
-    <div class="tagline">Your Personal AI Assistant</div>
-  </header>
-
-  <main>
-    <h1>Welcome to CLARA</h1>
-
-    <p class="intro">
-      CLARA is a simple personal assistant website designed to help
-      you organize ideas, learn, create, and get things done.
-    </p>
-
-    <div class="cards">
-
-      <div class="card">
-        <h2>💬 Ask CLARA</h2>
-        <p>
-          Get help with questions, ideas, and everyday tasks.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>📚 Learn</h2>
-        <p>
-          Explore topics and understand new concepts.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>✨ Create</h2>
-        <p>
-          Turn your ideas into useful content and projects.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>🚀 Get Started</h2>
-        <p>
-          This is the first version of the CLARA interface.
-        </p>
-      </div>
-
-    </div>
-  </main>
-
-  <footer>
-    CLARA © 2026
-  </footer>
-
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,8 +20,8 @@
 
     .app {
       max-width: 800px;
-      margin: auto;
       min-height: 100vh;
+      margin: auto;
       display: flex;
       flex-direction: column;
     }
@@ -184,6 +45,7 @@
     .chat {
       flex: 1;
       padding: 25px 20px;
+      overflow-y: auto;
     }
 
     .welcome {
@@ -227,6 +89,7 @@
 
     input {
       flex: 1;
+      min-width: 0;
       padding: 15px;
       border: 1px solid #475569;
       border-radius: 10px;
@@ -271,6 +134,7 @@
     </main>
 
     <div class="input-area">
+
       <input
         id="messageInput"
         type="text"
@@ -278,12 +142,14 @@
       >
 
       <button onclick="sendMessage()">Send</button>
+
     </div>
 
   </div>
 
   <script>
     function sendMessage() {
+
       const input = document.getElementById("messageInput");
       const chat = document.getElementById("chat");
       const welcome = document.getElementById("welcome");
@@ -299,14 +165,19 @@
       }
 
       const userMessage = document.createElement("div");
+
       userMessage.className = "message user";
+
       userMessage.textContent = message;
+
       chat.appendChild(userMessage);
 
       input.value = "";
 
       const claraMessage = document.createElement("div");
+
       claraMessage.className = "message clara";
+
       claraMessage.textContent =
         "I received your message. My AI brain will be connected next.";
 
@@ -315,11 +186,15 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
-    document.getElementById("messageInput").addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        sendMessage();
-      }
-    });
+    document
+      .getElementById("messageInput")
+      .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+
+      });
   </script>
 
 </body>
