@@ -183,21 +183,28 @@ async function sendMessage() {
 
   try {
 
-    const response = await fetch(WORKER_URL);
+    const response = await fetch(WORKER_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    message: message
+  })
+});
 
-    const data = await response.text();
+const data = await response.json();
 
-    claraMessage.textContent =
-      "CLARA backend says: " + data;
+claraMessage.textContent = data.reply;
 
-  } catch (error) {
+} catch (error) {
 
-    claraMessage.textContent =
-      "Could not connect to CLARA backend.";
+  claraMessage.textContent =
+    "Could not connect to CLARA backend.";
 
-  }
+}
 
-  chat.scrollTop = chat.scrollHeight;
+chat.scrollTop = chat.scrollHeight;
 }
 
 document
